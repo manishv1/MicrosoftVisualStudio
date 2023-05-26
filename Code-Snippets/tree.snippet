@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>tree</Title>
+			<Shortcut>tree</Shortcut>
+			<Description>Code snippet for tree code template</Description>
+			<Author>MV Corporation</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>expression</ID>
+					<ToolTip>Preprocessor expression to evaluate</ToolTip>
+					<Default>DEBUG</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="cpp"><![CDATA[class node
+{
+public:
+    int data;
+    node* left;
+    node* right;
+
+    node(int data) {
+        this->data = data;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+
+int idx = 0;
+vector<int> v = { 4,5,7,9,-1,-1,10,-1,-1,-1,6,-1,8,11,-1,-1,12,-1,-1 };
+node* buildTree()
+{
+    int data;
+    data = v[idx];
+    idx++;
+
+    if (data == -1)
+        return NULL;
+
+    node* root = new node(data);
+
+    if (idx  < v.size()) {
+        root->left = buildTree();
+    }
+    if (idx  < v.size()) {
+        root->right = buildTree();
+    }
+    return root;
+}
+
+void levelOederTraversal(vector<int> result, node* root)
+{
+    queue <node*>q;
+    //if (root == NULL) return;
+    q.push(root);
+
+    while (!q.empty()) {
+
+        node* cur = q.front();
+        q.pop();
+        cout << cur->data << "  ";
+        result.push_back(cur->data);
+
+        if (cur->left != NULL)
+            q.push(cur->left);
+        if (cur->right != NULL)
+            q.push(cur->right);
+    }
+}
+]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
